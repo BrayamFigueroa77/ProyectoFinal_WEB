@@ -1,6 +1,11 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../Firebase/FirebaseConfig";
 import "./CrearUsuario.css";
+
+import Swal from 'sweetalert2';
+
 
 function CrearUsuario() {
   const [email, setEmail] = useState("");
@@ -9,13 +14,53 @@ function CrearUsuario() {
   const navigate = useNavigate();
 
   const handleCreateAccount = () => {
-    console.log("Cuenta creada");
-    // Lógica para crear cuenta aquí
+    // Verificar si la contraseña y el email están vacíos antes de mostrar la alerta
+    if (!email || !password) {
+      Swal.fire({
+        title: "¡Error!",
+        text: "Por favor, complete todos los campos.",
+        icon: "error",
+        confirmButtonText: "OK"
+      });
+      return;
+    }
+
+    // Alerta de confirmación antes de crear la cuenta
+    Swal.fire({
+      title: "¿Estás seguro?",
+      text: "¿Quieres crear esta cuenta con el correo: " + email + "?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Sí, crear cuenta",
+      cancelButtonText: "No, cancelar",
+      reverseButtons: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Crear cuenta con Firebase
+        createUserWithEmailAndPassword(auth, email, password)
+          .then((userCredential) => {
+            console.log("Cuenta creada exitosamente", userCredential.user);
+            Swal.fire({
+              title: "¡Cuenta creada!",
+              text: "Tu cuenta ha sido creada con éxito.",
+              icon: "success",
+              confirmButtonText: "OK"
+            });
+            navigate("/"); // Redirige al login después de crear la cuenta
+          })
+          .catch((error) => {
+            console.error("Error al crear cuenta", error);
+            Swal.fire({
+              title: "¡Error!",
+              text: "Hubo un problema al crear la cuenta.",
+              icon: "error",
+              confirmButtonText: "OK"
+            });
+          });
+      }
+    });
   };
 
-  const handleLoginRedirect = () => {
-    navigate("/"); // Cambia "/login" a la ruta correspondiente si es necesario
-  };
 
   return (
     <div className="create-account">
@@ -64,7 +109,7 @@ function CrearUsuario() {
 
           <div className="footer">
             <span>¿Ya tienes cuenta?</span>
-            <button onClick={handleLoginRedirect} className="login-btn">
+            <button onClick={() => navigate('/')} className="login-btn">
               Iniciar sesión
             </button>
           </div>

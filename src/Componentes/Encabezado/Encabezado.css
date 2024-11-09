@@ -1,0 +1,30 @@
+header {
+  width: 99vw;
+  height: 15vh;
+  background-color: white;
+  display: flex;
+
+  gap: 10px;
+  justify-content: center;
+  top: 0px;
+  justify-content: initial;
+}
+
+#logo {
+  width: 20%;
+
+}
+
+.Titulo {
+  font-family: 'Comic Sans MS', cursive, sans-serif;
+  font-size: 3.8em;
+  padding: 0px;
+  margin-left: 20px;
+  align-content: center;
+  color: brown;
+  text-transform: uppercase;
+}
+
+#Navegacion {
+  margin-left: 40px;
+}

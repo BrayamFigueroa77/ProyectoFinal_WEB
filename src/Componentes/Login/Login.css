@@ -3,6 +3,7 @@
   justify-content: center;
   align-items: center;
   width: 100vw;
+  margin-top: 5%;
 }
 
 .login-background img {
@@ -69,7 +70,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 1.5rem;
+  margin-top: 0;
 }
 
 .forgot-password {
@@ -92,7 +93,6 @@
 }
 
 .register {
-  margin-top: 2rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -107,3 +107,10 @@
   font-weight: bold;
   cursor: pointer;
 }
+
+.social-login {
+  margin-top: 0.5rem;
+}
+
+
+
