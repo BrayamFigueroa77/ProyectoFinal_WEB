@@ -1,31 +1,63 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../Firebase/FirebaseConfig";
+import { auth, db } from "../../Firebase/FirebaseConfig";
+import { addDoc, collection } from "firebase/firestore"; // Importaciones necesarias
+
 import "./CrearUsuario.css";
 
-import Swal from 'sweetalert2';
-
+import Swal from "sweetalert2";
 
 function CrearUsuario() {
+  const [primerNombre, setPrimerNombre] = useState("");
+  const [segundoNombre, setSegundoNombre] = useState("");
+  const [primerApellido, setPrimerApellido] = useState("");
+  const [segundoApellido, setSegundoApellido] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordVisible, setPasswordVisible] = useState(false);
   const navigate = useNavigate();
 
+
+  const esCorreoValido = (email) => {
+    const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return regex.test(email);
+  };
+
+
   const handleCreateAccount = () => {
-    // Verificar si la contraseña y el email están vacíos antes de mostrar la alerta
-    if (!email || !password) {
+    if (!email || !password || !primerNombre || !primerApellido) {
       Swal.fire({
         title: "¡Error!",
         text: "Por favor, complete todos los campos.",
         icon: "error",
-        confirmButtonText: "OK"
+        confirmButtonText: "OK",
       });
       return;
     }
-
-    // Alerta de confirmación antes de crear la cuenta
+  
+    // Validación del correo electrónico (debe contener un @)
+    if (!esCorreoValido(email)) {
+      Swal.fire({
+        title: "¡Error!",
+        text: "Por favor, ingresa un correo electrónico válido.",
+        icon: "error",
+        confirmButtonText: "OK",
+      });
+      return;
+    }
+  
+    // Validación de la contraseña (debe tener al menos 6 caracteres)
+    if (password.length < 6) {
+      Swal.fire({
+        title: "¡Error!",
+        text: "La contraseña debe tener al menos 6 caracteres.",
+        icon: "error",
+        confirmButtonText: "OK",
+      });
+      return;
+    }
+  
     Swal.fire({
       title: "¿Estás seguro?",
       text: "¿Quieres crear esta cuenta con el correo: " + email + "?",
@@ -33,20 +65,44 @@ function CrearUsuario() {
       showCancelButton: true,
       confirmButtonText: "Sí, crear cuenta",
       cancelButtonText: "No, cancelar",
-      reverseButtons: true
+      reverseButtons: true,
     }).then((result) => {
       if (result.isConfirmed) {
-        // Crear cuenta con Firebase
         createUserWithEmailAndPassword(auth, email, password)
           .then((userCredential) => {
-            console.log("Cuenta creada exitosamente", userCredential.user);
-            Swal.fire({
-              title: "¡Cuenta creada!",
-              text: "Tu cuenta ha sido creada con éxito.",
-              icon: "success",
-              confirmButtonText: "OK"
-            });
-            navigate("/"); // Redirige al login después de crear la cuenta
+            const user = userCredential.user;
+  
+            // Agregar datos adicionales en Firestore
+            const userData = {
+              uid: user.uid,
+              primerNombre,
+              segundoNombre,
+              primerApellido,
+              segundoApellido,
+              email,
+              password,
+              createdAt: new Date(),
+            };
+  
+            addDoc(collection(db, "Usuarios"), userData)
+              .then(() => {
+                Swal.fire({
+                  title: "¡Cuenta creada!",
+                  text: "Tu cuenta ha sido creada con éxito.",
+                  icon: "success",
+                  confirmButtonText: "OK",
+                });
+                navigate("/"); // Redirige al login después de crear la cuenta
+              })
+              .catch((error) => {
+                console.error("Error al guardar los datos en Firestore", error);
+                Swal.fire({
+                  title: "¡Error!",
+                  text: "Hubo un problema al guardar los datos.",
+                  icon: "error",
+                  confirmButtonText: "OK",
+                });
+              });
           })
           .catch((error) => {
             console.error("Error al crear cuenta", error);
@@ -54,13 +110,12 @@ function CrearUsuario() {
               title: "¡Error!",
               text: "Hubo un problema al crear la cuenta.",
               icon: "error",
-              confirmButtonText: "OK"
+              confirmButtonText: "OK",
             });
           });
       }
     });
   };
-
 
   return (
     <div className="create-account">
@@ -77,7 +132,37 @@ function CrearUsuario() {
             alt="logo"
             className="logo-img"
           />
-          <h2 className="title">Crear Cuenta</h2>
+          <h2 className="title">Crear Cuenta de Usuario</h2>
+
+          <input
+            type="text"
+            value={primerNombre}
+            onChange={(e) => setPrimerNombre(e.target.value)}
+            placeholder="Primer Nombre"
+            className="input"
+          />
+
+          <input
+            type="text"
+            value={segundoNombre}
+            onChange={(e) => setSegundoNombre(e.target.value)}
+            placeholder="Segundo Nombre"
+            className="input"
+          />
+          <input
+            type="text"
+            value={primerApellido}
+            onChange={(e) => setPrimerApellido(e.target.value)}
+            placeholder="Primer Apellido"
+            className="input"
+          />
+          <input
+            type="text"
+            value={segundoApellido}
+            onChange={(e) => setSegundoApellido(e.target.value)}
+            placeholder="Segundo Apellido"
+            className="input"
+          />
 
           <input
             type="text"
@@ -109,7 +194,7 @@ function CrearUsuario() {
 
           <div className="footer">
             <span>¿Ya tienes cuenta?</span>
-            <button onClick={() => navigate('/')} className="login-btn">
+            <button onClick={() => navigate("/")} className="login-btn">
               Iniciar sesión
             </button>
           </div>
