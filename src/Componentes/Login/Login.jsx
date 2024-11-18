@@ -2,8 +2,11 @@ import "./Login.css";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { collection, query, where, getDocs, addDoc } from "firebase/firestore";
-import { auth, db } from "../../Firebase/FirebaseConfig"; // Asegúrate de tener la configuración correcta de Firebase
+import { auth, db } from "../../Firebase/FirebaseConfig";
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { PiUsers } from "react-icons/pi";
+import { RiLockPasswordLine } from "react-icons/ri";
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import Swal from "sweetalert2";
 
 function Login() {
@@ -17,7 +20,11 @@ function Login() {
     try {
       // Crear la consulta para buscar el usuario con el email y contraseña ingresados
       const usersRef = collection(db, "Usuarios");
-      const q = query(usersRef, where("email", "==", email), where("password", "==", password));
+      const q = query(
+        usersRef,
+        where("email", "==", email),
+        where("password", "==", password)
+      );
       const querySnapshot = await getDocs(q);
 
       if (!querySnapshot.empty) {
@@ -57,7 +64,10 @@ function Login() {
       const googleUser = result.user;
 
       // Verificar si el usuario ya existe en Firestore
-      const q = query(collection(db, "Usuarios"), where("email", "==", googleUser.email));
+      const q = query(
+        collection(db, "Usuarios"),
+        where("email", "==", googleUser.email)
+      );
       const querySnapshot = await getDocs(q);
 
       if (querySnapshot.empty) {
@@ -104,7 +114,10 @@ function Login() {
         <h2 className="welcome-text">Bienvenidos</h2>
 
         <div className="form-group">
-          <label>Usuario</label>
+          <div className="diseño">
+            <PiUsers />
+            <label>Usuario</label>
+          </div>
           <input
             type="text"
             value={email}
@@ -114,9 +127,12 @@ function Login() {
         </div>
 
         <div className="form-group">
-          <label>Contraseña</label>
+          <div className="diseño">
+            <RiLockPasswordLine />
+            <label>Contraseña</label>
+          </div>
           <input
-            type={passwordVisible ? 'text' : 'password'}
+            type={passwordVisible ? "text" : "password"}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="*********"
@@ -125,11 +141,13 @@ function Login() {
             className="toggle-visibility"
             onClick={() => setPasswordVisible(!passwordVisible)}
           >
-            {passwordVisible ? 'Ocultar' : 'Mostrar'}
+            {passwordVisible ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
           </span>
         </div>
 
-        <button onClick={handleLogin} className="login-button">Iniciar</button>
+        <button onClick={handleLogin} className="login-button">
+          Iniciar
+        </button>
 
         <div className="social-login">
           <button onClick={handleGoogleLogin} className="google-login-button">
@@ -139,7 +157,10 @@ function Login() {
 
         <div className="register">
           <p>No tiene cuenta?</p>
-          <button onClick={() => navigate('/create-account')} className="register-button">
+          <button
+            onClick={() => navigate("/create-account")}
+            className="register-button"
+          >
             Registrarse
           </button>
         </div>

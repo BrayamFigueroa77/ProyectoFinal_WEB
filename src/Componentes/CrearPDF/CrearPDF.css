@@ -1,0 +1,25 @@
+.pdf {
+  background: linear-gradient(135deg, #3498db, #2980b9); /* Gradiente azul */
+  color: #fff;
+  border: none;
+  padding: 12px 28px; 
+  font-size: 18px; 
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1.5px; /* Espaciado entre letras */
+  border-radius: 50px; 
+  cursor: pointer;
+  transition: all 0.3s ease-in-out; 
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); 
+}
+
+.pdf:hover {
+  background: linear-gradient(135deg, #2980b9, #3498db); 
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); 
+}
+
+.pdf:active {
+  transform: translateY(2px); 
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); 
+}

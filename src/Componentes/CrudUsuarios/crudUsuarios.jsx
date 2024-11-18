@@ -9,6 +9,7 @@ import {
   updateDoc,
   deleteDoc,
 } from "firebase/firestore";
+import CrearPDF from "../crearPDF/crearPDF";
 import Swal from "sweetalert2";
 
 const CrudUsuarios = () => {
@@ -19,6 +20,8 @@ const CrudUsuarios = () => {
   const [segundoApellido, setSegundoApellido] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [rol, setRol] = useState("");
+
   const [usuarioSeleccionado, setUsuarioSeleccionado] = useState(null);
   const [usuarioDesseleccionado, setDesSeleccionado] = useState(null);
 
@@ -37,7 +40,7 @@ const CrudUsuarios = () => {
 
   // Función para crear un usuario
   const agregarUsuario = async () => {
-    if (!primerNombre || !primerApellido || !email || !password) {
+    if (!primerNombre || !primerApellido || !email || !password || !rol) {
       Swal.fire("Error", "Por favor, completa todos los campos", "error");
       return;
     }
@@ -48,6 +51,7 @@ const CrudUsuarios = () => {
       segundoApellido,
       email,
       password,
+      rol,
       createdAt: new Date(),
     };
     await addDoc(usuariosCollectionRef, usuario);
@@ -57,13 +61,14 @@ const CrudUsuarios = () => {
     setSegundoApellido("");
     setEmail("");
     setPassword("");
+    setRol("");
     cargarUsuarios(); // Actualiza la lista de usuarios
     Swal.fire("Éxito", "Usuario agregado correctamente", "success");
   };
 
   // Función para actualizar un usuario
   const actualizarUsuario = async () => {
-    if (!primerNombre || !primerApellido || !email || !password) {
+    if (!primerNombre || !primerApellido || !email || !password || !rol) {
       Swal.fire("Error", "Por favor, completa todos los campos", "error");
       return;
     }
@@ -75,6 +80,7 @@ const CrudUsuarios = () => {
       segundoApellido,
       email,
       password,
+      rol,
     });
     setUsuarioSeleccionado(null); // Resetear el usuario seleccionado
     setPrimerNombre("");
@@ -83,6 +89,7 @@ const CrudUsuarios = () => {
     setSegundoApellido("");
     setEmail("");
     setPassword("");
+    setRol("");
     cargarUsuarios(); // Actualiza la lista de usuarios
     Swal.fire("Éxito", "Usuario actualizado correctamente", "success");
   };
@@ -99,15 +106,19 @@ const CrudUsuarios = () => {
         cancelButtonText: "No, cancelar",
         reverseButtons: true,
       });
-  
+
       if (result.isConfirmed) {
         const usuarioDoc = doc(db, "Usuarios", id);
         await deleteDoc(usuarioDoc);
         cargarUsuarios(); // Llamar a la función para recargar la lista de usuarios
-  
+
         Swal.fire("Eliminado", "Usuario eliminado correctamente", "success");
       } else {
-        Swal.fire("Cancelado", "La eliminación del usuario ha sido cancelada", "info");
+        Swal.fire(
+          "Cancelado",
+          "La eliminación del usuario ha sido cancelada",
+          "info"
+        );
       }
     } catch (error) {
       console.error("Error al eliminar el usuario:", error);
@@ -124,6 +135,7 @@ const CrudUsuarios = () => {
     setSegundoApellido(usuario.segundoApellido);
     setEmail(usuario.email);
     setPassword(usuario.password);
+    setRol(usuario.rol);
   };
 
   const desseleccionarUsuario = (usuario) => {
@@ -135,16 +147,16 @@ const CrudUsuarios = () => {
     setSegundoApellido("");
     setEmail("");
     setPassword("");
+    setRol("");
     cargarUsuarios(); // Actualiza la lista de usuarios
     Swal.fire("Éxito", "Operación cancelada correctamente", "success");
   };
-
-
 
   return (
     <div className="body_usuario">
       <div className="container_usuarios">
         <h2 className="h2_usuarios">CRUD de Usuarios</h2>
+        <CrearPDF/>
 
         {/* Formulario para agregar o editar usuario */}
         <input
@@ -175,6 +187,22 @@ const CrudUsuarios = () => {
           placeholder="Segundo Apellido"
           className="input_usuarios"
         />
+
+        <input
+          type="text"
+          list="misOpciones"
+          placeholder="Seleccione una opción"
+          value={rol}
+          onChange={(e) => setRol(e.target.value)} // Evento onChange en el input
+          className="input_usuarios"
+        />
+        <datalist id="misOpciones">
+          <option value="Administrador">Administrador</option>
+          <option value="Investigador">Investigador</option>
+          <option value="Colaborador">Colaborador</option>
+          <option value="Otro">Colaborador</option>
+        </datalist>
+
         <input
           type="email"
           value={email}
@@ -196,10 +224,7 @@ const CrudUsuarios = () => {
         >
           {usuarioSeleccionado ? "Actualizar Usuario" : "Agregar Usuario"}
         </button>
-        <button
-        className="button_usuario"
-        onClick={desseleccionarUsuario}
->
+        <button className="button_usuario" onClick={desseleccionarUsuario}>
           Cancelar
         </button>
 
@@ -211,6 +236,7 @@ const CrudUsuarios = () => {
               <th>Segundo Nombre</th>
               <th>Primer Apellido</th>
               <th>Segundo Apellido</th>
+              <th>Rol</th>
               <th>Email</th>
               <th>Acciones</th>
             </tr>
@@ -222,8 +248,10 @@ const CrudUsuarios = () => {
                 <td>{usuario.segundoNombre}</td>
                 <td>{usuario.primerApellido}</td>
                 <td>{usuario.segundoApellido}</td>
+                <td>{usuario.rol}</td>
                 <td>{usuario.email}</td>
                 <td>
+                  <div className="botones_editar_eliminar_usuario">
                   <button
                     className="editar_usuario"
                     onClick={() => seleccionarUsuario(usuario)}
@@ -236,6 +264,7 @@ const CrudUsuarios = () => {
                   >
                     Eliminar
                   </button>
+                  </div>
                 </td>
               </tr>
             ))}

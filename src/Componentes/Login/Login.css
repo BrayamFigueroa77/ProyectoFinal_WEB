@@ -81,17 +81,6 @@
   font-family: "Urbanist", sans-serif;
 }
 
-.login-button {
-  padding: 0.5rem 1rem;
-  background-color: #4b39ef;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-size: 1rem;
-  font-weight: bold;
-  cursor: pointer;
-}
-
 .register {
   display: flex;
   align-items: center;
@@ -112,5 +101,36 @@
   margin-top: 0.5rem;
 }
 
+.diseño {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
 
+.login-button,
+.google-login-button {
+  padding: 0.5rem 1rem;
+  background-color: #4b39ef;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+  transition: all 0.4s ease;
+}
+.google-login-button {
+  background-color: #727675;
+}
 
+.google-login-button:hover,
+.login-button:hover {
+  opacity: 0.8;
+  transform: translateY(-2px);
+}
+.login-button:active,
+.google-login-button:active {
+  transform: translateY(2px);
+  background-color: #000;
+}

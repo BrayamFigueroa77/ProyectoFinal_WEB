@@ -1,30 +1,167 @@
-header {
-  width: 99vw;
-  height: 15vh;
-  background-color: white;
-  display: flex;
-
-  gap: 10px;
-  justify-content: center;
-  top: 0px;
-  justify-content: initial;
-}
-
-#logo {
-  width: 20%;
-
-}
-
-.Titulo {
-  font-family: 'Comic Sans MS', cursive, sans-serif;
-  font-size: 3.8em;
-  padding: 0px;
-  margin-left: 20px;
-  align-content: center;
-  color: brown;
+/* Estilos para la sección de cierre de sesión */
+.cerrarSession {
+  margin: 10px;
+  padding: 15px 25px;
+  background-color: #bdc3c7; /* Gris suave */
+  color: #fff;
+  border-radius: 30px;
+  font-weight: bold;
   text-transform: uppercase;
+  cursor: pointer;
+  font-size: 1.1rem;
+  letter-spacing: 1px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
-#Navegacion {
-  margin-left: 40px;
+.cerrarSession:hover {
+  background-color: #95a5a6; /* Gris más oscuro */
+  transform: scale(1.05);
+}
+
+/* Estilos para el nav (barra de navegación) */
+nav {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 20px 40px;
+  color: #ecf0f1;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+}
+
+nav img {
+  height: 50px; /* Ajustar el tamaño del logo */
+}
+
+/* Estilos para el header con fondo */
+header {
+  margin: 0;
+  position: relative;
+  height: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  text-align: center;
+  border-bottom: 5px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  overflow: hidden; /* Ocultar cualquier contenido que sobresalga */
+}
+
+/* Capas de imágenes para el efecto de desvanecimiento */
+header::before,
+header::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 1.5s ease-in-out; /* Suavizar el cambio de opacidad */
+}
+
+header::before {
+  background-image: url('https://img.freepik.com/fotos-premium/abraza-naturalezas-abraza-flores-pastel-suaves-botanicos-plan-patron-floral-costuras_898826-25144.jpg');
+  animation: fadeBackground 15s infinite;
+}
+
+header::after {
+  background-image: url('https://images.unsplash.com/photo-1507646871303-331b8f659227?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Q2FtcG8lMjBib3QlQzMlQTFuaWNvfGVufDB8fDB8fHww');
+  animation: fadeBackground 15s infinite 7.5s; /* Inicia a mitad del ciclo */
+}
+
+/* Animación de desvanecimiento */
+@keyframes fadeBackground {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.2;
+  }
+}
+
+/* Título estilizado */
+.Titulo {
+  margin-top: 1%;
+  margin-bottom: -1.5%;
+  font-family: 'Poppins', sans-serif;
+  font-size: 4rem;
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  text-shadow: 0 0 15px #000, 0 0 25px #000, 0 0 50px #000, 0 0 80px #000;
+  font-weight: 700;
+  z-index: 2;
+}
+
+/* Indicadores de imagen activa (puntos) */
+.header-dots {
+  position: absolute;
+  bottom: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  z-index: 2;
+}
+
+.header-dots .dot {
+  width: 12px;
+  height: 12px;
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 50%;
+  transition: background-color 0.3s ease;
+}
+
+.header-dots .dot.active {
+  background-color: #ecf0f1;
+}
+
+/* Estilos para los botones en el encabezado */
+.botones_encabezado {
+  display: flex;
+  gap: 15px;
+  margin: 0;
+  right: 40px;
+  margin: 0;
+  z-index: 1;
+}
+
+.botones_encabezado button {
+  padding: 10px 20px;
+  background-color: rgba(186, 206, 212, 0.753);
+  color: #000000;
+  border: 2px solid #ecf0f1;
+  border-radius: 50px;
+  font-size: 1rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.botones_encabezado button:hover {
+  background-color: #ecf0f1;
+  color: #2d3436;
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Media query para dispositivos más pequeños */
+@media (max-width: 768px) {
+  header {
+    height: 250px;
+  }
+
+  .Titulo {
+    font-size: 3rem;
+  }
+
+  .botones_encabezado {
+    flex-direction: column;
+    gap: 20px;
+    top: 10px;
+    right: 10px;
+  }
 }

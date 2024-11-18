@@ -2,11 +2,17 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth, db } from "../../Firebase/FirebaseConfig";
-import { addDoc, collection } from "firebase/firestore"; // Importaciones necesarias
+import { addDoc, collection } from "firebase/firestore";
+import Swal from "sweetalert2";
+import {
+  AiOutlineUser,
+  AiOutlineMail,
+  AiOutlineLock,
+  AiOutlineEye,
+  AiOutlineEyeInvisible,
+} from "react-icons/ai"; // Iconos importados
 
 import "./CrearUsuario.css";
-
-import Swal from "sweetalert2";
 
 function CrearUsuario() {
   const [primerNombre, setPrimerNombre] = useState("");
@@ -18,12 +24,10 @@ function CrearUsuario() {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const navigate = useNavigate();
 
-
   const esCorreoValido = (email) => {
     const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     return regex.test(email);
   };
-
 
   const handleCreateAccount = () => {
     if (!email || !password || !primerNombre || !primerApellido) {
@@ -35,7 +39,7 @@ function CrearUsuario() {
       });
       return;
     }
-  
+
     // Validación del correo electrónico (debe contener un @)
     if (!esCorreoValido(email)) {
       Swal.fire({
@@ -46,7 +50,7 @@ function CrearUsuario() {
       });
       return;
     }
-  
+
     // Validación de la contraseña (debe tener al menos 6 caracteres)
     if (password.length < 6) {
       Swal.fire({
@@ -57,7 +61,7 @@ function CrearUsuario() {
       });
       return;
     }
-  
+
     Swal.fire({
       title: "¿Estás seguro?",
       text: "¿Quieres crear esta cuenta con el correo: " + email + "?",
@@ -71,7 +75,7 @@ function CrearUsuario() {
         createUserWithEmailAndPassword(auth, email, password)
           .then((userCredential) => {
             const user = userCredential.user;
-  
+
             // Agregar datos adicionales en Firestore
             const userData = {
               uid: user.uid,
@@ -83,7 +87,7 @@ function CrearUsuario() {
               password,
               createdAt: new Date(),
             };
-  
+
             addDoc(collection(db, "Usuarios"), userData)
               .then(() => {
                 Swal.fire({
@@ -134,57 +138,77 @@ function CrearUsuario() {
           />
           <h2 className="title">Crear Cuenta de Usuario</h2>
 
-          <input
-            type="text"
-            value={primerNombre}
-            onChange={(e) => setPrimerNombre(e.target.value)}
-            placeholder="Primer Nombre"
-            className="input"
-          />
-
-          <input
-            type="text"
-            value={segundoNombre}
-            onChange={(e) => setSegundoNombre(e.target.value)}
-            placeholder="Segundo Nombre"
-            className="input"
-          />
-          <input
-            type="text"
-            value={primerApellido}
-            onChange={(e) => setPrimerApellido(e.target.value)}
-            placeholder="Primer Apellido"
-            className="input"
-          />
-          <input
-            type="text"
-            value={segundoApellido}
-            onChange={(e) => setSegundoApellido(e.target.value)}
-            placeholder="Segundo Apellido"
-            className="input"
-          />
-
-          <input
-            type="text"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="Ingrese su correo"
-            className="input"
-          />
-
-          <div className="password-input">
+          <div className="input-group">
+            <AiOutlineUser className="input-icon" />
             <input
-              type={passwordVisible ? "text" : "password"}
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="Ingrese su contraseña"
+              type="text"
+              value={primerNombre}
+              onChange={(e) => setPrimerNombre(e.target.value)}
+              placeholder="Primer Nombre"
               className="input"
             />
+          </div>
+
+          <div className="input-group">
+            <AiOutlineUser className="input-icon" />
+            <input
+              type="text"
+              value={segundoNombre}
+              onChange={(e) => setSegundoNombre(e.target.value)}
+              placeholder="Segundo Nombre"
+              className="input"
+            />
+          </div>
+
+          <div className="input-group">
+            <AiOutlineUser className="input-icon" />
+            <input
+              type="text"
+              value={primerApellido}
+              onChange={(e) => setPrimerApellido(e.target.value)}
+              placeholder="Primer Apellido"
+              className="input"
+            />
+          </div>
+
+          <div className="input-group">
+            <AiOutlineUser className="input-icon" />
+            <input
+              type="text"
+              value={segundoApellido}
+              onChange={(e) => setSegundoApellido(e.target.value)}
+              placeholder="Segundo Apellido"
+              className="input"
+            />
+          </div>
+
+          <div className="input-group">
+            <AiOutlineMail className="input-icon" />
+            <input
+              type="text"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Ingrese su correo"
+              className="input"
+            />
+          </div>
+
+          <div className="password-input">
+            <div className="input-group">
+              <AiOutlineLock className="input-icon" />
+              <input
+                type={passwordVisible ? "text" : "password"}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Ingrese su contraseña"
+                className="input"
+              />
+            </div>
             <span
               className="toggle-password"
               onClick={() => setPasswordVisible(!passwordVisible)}
             >
-              {passwordVisible ? "Ocultar" : "Mostrar"}
+              {passwordVisible ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
             </span>
           </div>
 

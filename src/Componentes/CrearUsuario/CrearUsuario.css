@@ -49,7 +49,7 @@
 .title {
   font-size: 24px;
   font-family: "Urbanist", sans-serif;
-  margin-bottom: 0px;
+  margin-bottom: 5%px;
   margin-top: -10px;
 }
 
@@ -80,7 +80,6 @@
 .create-account-btn {
   width: 100%;
   padding: 16px;
-  margin-top: 24px;
   background-color: #4b39ef;
   color: #fff;
   font-size: 18px;
@@ -88,6 +87,7 @@
   border: none;
   border-radius: 40px;
   cursor: pointer;
+  transition: all 0.3s ease;
 }
 
 .footer {
@@ -95,12 +95,54 @@
 }
 
 .login-btn {
-  margin-left: 8px;
-  background-color: transparent;
+  background: none;
+  border: none;
   color: #39d2c0;
-  font-size: 14px;
+  font-family: "Urbanist", sans-serif;
   font-weight: bold;
   cursor: pointer;
-  border: none;
-  text-decoration: underline;
+}
+
+.input-group {
+  position: relative;
+  margin-bottom: 1rem;
+}
+
+.input-icon {
+  position: absolute;
+  left: -6%;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.2rem;
+  color: #4b39ef;
+}
+
+.input {
+  width: 100%;
+  padding: 0.75rem 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  margin: 5px;
+}
+
+.password-input {
+  position: relative;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.create-account-btn:hover {
+  opacity: 0.8;
+  transform: translateY(-2px);
+}
+.create-account-btn:active {
+  transform: translateY(2px);
+  background-color: #000;
 }

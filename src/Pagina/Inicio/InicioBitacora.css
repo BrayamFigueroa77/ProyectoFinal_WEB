@@ -1,0 +1,462 @@
+/* Estilos generales */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+  color: #2c3e50;
+}
+
+/* Estilo para títulos */
+h1, h2, h3 {
+  font-family: 'Roboto', sans-serif;
+  color: #ff0000;
+  margin: 0;
+}
+
+h1 {
+
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+h2 {
+  font-size: 2.5rem;
+  font-weight: 600;
+}
+
+h3 {
+  font-size: 1.8rem;
+  font-weight: 500;
+}
+
+/* Estilos del contenedor principal */
+main {
+  width: 100%;
+  max-width: 900px;
+  padding: 40px;
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  margin: 5vh auto 2%;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+/* Estilo para el título BITÁCORAS */
+.titulo-bitacora {
+  text-align: center;
+  color: white; /* Letras blancas */
+  background-color: #7f8c8d; /* Fondo gris oscuro */
+  margin-bottom: 30px;
+  font-size: 2.8rem;
+  font-weight: bold;
+  letter-spacing: 1.2px;
+  text-shadow: 0 4px 8px rgba(215, 218, 223, 0.664);
+  padding: 20px; /* Añadido para dar un poco de espacio alrededor del texto */
+  border-radius: 10px; /* Bordes redondeados */
+}
+
+
+
+/* Estilos de los filtros */
+.filters {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+
+.filters input {
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  width: 30%;
+  margin-right: 10px;
+  font-size: 1rem;
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.filters input:focus {
+  border-color: hwb(218 49% 47% / 0.87);
+  box-shadow: 0 0 8px rgba(127, 140, 141, 0.4); /* Sombra gris más oscura al hacer foco */
+  outline: none;
+}
+
+.filters input:last-child {
+  margin-right: 0;
+}
+
+/* Botón de agregar bitácora */
+button {
+  background-color: #7f8c8d; /* Gris suave */
+  color: white;
+  padding: 14px 28px; /* Aumentamos el padding para hacerlo más grande */
+  border: none;
+  border-radius: 25px; /* Bordes redondeados */
+  cursor: pointer;
+  font-size: 1.2rem;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 15px rgba(127, 140, 141, 0.3); /* Sombra gris */
+  text-transform: uppercase; /* Hacer el texto en mayúsculas */
+}
+
+button:hover {
+  background-color: #95a5a6; /* Gris más oscuro al pasar el ratón */
+  box-shadow: 0 8px 20px rgba(149, 165, 166, 0.4); /* Sombra más oscura */
+  transform: translateY(-2px); /* Efecto de movimiento al pasar el ratón */
+}
+
+button:focus {
+  outline: none; /* Eliminar el borde azul predeterminado del navegador al hacer clic */
+  box-shadow: 0 0 8px rgba(127, 140, 141, 0.6); /* Sombra al hacer foco */
+}
+
+/* Estilos del formulario de agregar bitácora */
+.form-container {
+  background-color: #ffffff;
+  padding: 40px;
+  border-radius: 12px;
+  margin-top: 30px;
+  font-size: 1rem;
+  line-height: 1.6;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.form-container h2 {
+  text-align: center;
+  color: #34495e;
+  font-size: 2.4rem;
+  margin-bottom: 30px;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+}
+
+/* Estilo para las etiquetas de los campos */
+.form-container label {
+  font-size: 1.2rem;
+  color: #34495e;
+  margin-bottom: 10px;
+  display: block;
+  font-weight: 500;
+  margin-top: 15px;
+}
+
+/* Estilo para los campos de entrada */
+.form-container input[type="text"],
+.form-container input[type="date"],
+.form-container input[type="number"],
+.form-container textarea {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 20px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+  color: #2c3e50;
+  background-color: #fafafa;
+  transition: border-color 0.3s ease;
+}
+
+/* Estilo cuando un campo es seleccionado */
+.form-container input[type="text"]:focus,
+.form-container input[type="date"]:focus,
+.form-container input[type="number"]:focus,
+.form-container textarea:focus {
+  box-shadow: 0 0 8px rgba(127, 140, 141, 0.4);
+  outline: none;
+}
+
+/* Estilo para el área de texto */
+.form-container textarea {
+  height: 180px;
+  resize: vertical;
+}
+
+/* Botón de agregar bitácora en el formulario */
+.form-container button {
+  background-color: #7f8c8d;
+  color: white;
+  font-size: 1.2rem;
+  font-weight: bold;
+  padding: 14px 24px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 30px; /* Aumenta el margen superior para separarlo más del contenido */
+  transition: background-color 0.3s ease;
+}
+
+/* Aseguramos que el botón cambie de color al pasar el ratón por encima */
+.form-container button:hover {
+  background-color: #95a5a6;
+}
+
+/* Separación adicional para mejorar el espaciado entre campos */
+.form-container input[type="text"],
+.form-container input[type="date"],
+.form-container input[type="number"],
+.form-container textarea {
+  margin-bottom: 25px; /* Añadimos más espacio entre los campos */
+}
+
+
+/* Responsividad */
+@media (max-width: 768px) {
+  .form-container {
+    padding: 20px;
+    max-width: 90%;
+  }
+
+  .form-container h2 {
+    font-size: 2.2rem;
+    margin-bottom: 20px;
+  }
+}
+.selected-bitacora {
+  padding: 20px;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  margin: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.selected-bitacora img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 10px 0;
+}
+
+.close-btn-container {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.close-btn-container button {
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  background-color: #f44336;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+
+.bitacora-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px; /* Espaciado entre las tarjetas */
+  padding: 20px;
+}
+
+.bitacora-card {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+}
+
+.bitacora-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.2);
+}
+
+.bitacora-card h2 {
+  font-size: 1.5rem;
+  margin: 0 0 10px 0;
+}
+
+.bitacora-card p {
+  font-size: 1rem;
+  color: #555;
+  margin: 0 0 15px 0;
+}
+
+.bitacora-card button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  background-color: #e74c3c;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.bitacora-card button:hover {
+  background-color: #c0392b;
+}
+.bitacora-image-container {
+  width: 150px; /* Tamaño del contenedor de la imagen */
+  height: 150px;
+  overflow: hidden; /* Esconde cualquier parte de la imagen que sobresalga */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+}
+
+.bitacora-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Asegura que la imagen se ajuste al contenedor sin deformarse */
+}
+.selected-bitacora {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  max-width: 1000px;
+  margin: 20px auto;
+}
+
+.selected-bitacora h3 {
+  font-size: 2rem;
+  color: #4a90e2;
+}
+
+.selected-bitacora p {
+  font-size: 1.2rem;
+  line-height: 1.8;
+  color: #555;
+}
+
+.selected-bitacora button {
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  font-size: 1.1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 20px;
+  width: 100%;
+}
+
+.selected-bitacora button:hover {
+  background-color: #c0392b;
+}
+@media (max-width: 768px) {
+  .bitacora-list {
+    grid-template-columns: 1fr; /* Para pantallas pequeñas, apilar en una columna */
+  }
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+  .filters {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .filters input {
+    width: 100%;
+  }
+
+  .bitacoras-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+.contenedor_filtros{
+  display: flex;
+  flex-direction: row;
+  gap: 2px;
+  
+}
+
+
+
+/* Estilo general para los campos de búsqueda */
+.campo-busqueda {
+  width: 100%;
+  
+  max-width: 400px;
+  padding: 10px;
+  margin: 10;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  font-size: 16px;
+  background-color: #f9f9f9;
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+label.campo-busqueda{
+  display: flex;
+  flex-direction: row;
+  width: 50%;
+
+}
+
+.campo-busqueda:focus {
+  border-color: #4caf50; /* Color verde cuando el campo está enfocado */
+  background-color: #fff; /* Fondo blanco cuando el campo está enfocado */
+  outline: none; /* Quitar el borde por defecto */
+}
+
+.campo-busqueda:active {
+  border: solid#45a049;
+}
+
+.bitacora-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Espaciado entre las tarjetas */
+}
+
+.bitacora-card {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease-in-out;
+  cursor: pointer;
+  position: relative;
+}
+
+.bitacora-card:hover {
+  transform: scale(1.05);
+}
+
+.bitacora-titulo {
+  color: #333;
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.bitacora-text {
+  color: #333;
+  font-size: 1rem;
+  margin: 5px 0;
+}
+
+.bitacora-image-container {
+  width: 100%;
+  height: 300px;
+  overflow: hidden;
+  margin-top: 10px;
+}
+
+.bitacora-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+label {
+  font-weight: bold;
+  margin-top: 10px;
+  display: block;
+  font-size: 1.1rem;
+}

@@ -1,0 +1,106 @@
+.especie-form-container {
+  background-color: #ffffff; /* Fondo blanco para un diseño limpio */
+  border-radius: 16px; /* Bordes más redondeados para un look más suave */
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  padding: 35px;
+  width: 400px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid #ecf0f1; /* Bordes suaves */
+}
+
+.especie-form-container:hover {
+  transform: translateY(-10px); /* Efecto de levitar más pronunciado */
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15); /* Sombra más intensa */
+}
+
+.especie-form-container h3 {
+  font-size: 1.6rem;
+  color: #34495e; /* Gris oscuro para el título */
+  text-align: center;
+  font-weight: 700; /* Título más destacado */
+  letter-spacing: 1.5px;
+  margin-bottom: 20px;
+}
+
+.form-label {
+  font-size: 1rem;
+  color: #34495e; /* Gris más oscuro */
+  font-weight: 500; /* Peso de fuente moderado */
+  margin-bottom: 8px;
+  display: inline-block;
+}
+
+.especie-form-container input[type="text"],
+.especie-form-container input[type="number"],
+.especie-form-container input[type="file"] {
+  padding: 16px;
+  border: 1px solid #bdc3c7; /* Bordes suaves */
+  border-radius: 12px; /* Bordes redondeados */
+  font-size: 1.1rem;
+  color: #2c3e50;
+  width: 100%;
+  background-color: #f4f6f7; /* Fondo gris muy claro */
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  margin-bottom: 12px; /* Espacio entre los campos */
+}
+
+.especie-form-container input[type="text"]:focus,
+.especie-form-container input[type="number"]:focus,
+.especie-form-container input[type="file"]:focus {
+  border-color: #3498db; /* Azul más brillante al enfocar */
+  outline: none;
+  box-shadow: 0 0 10px rgba(52, 152, 219, 0.3); /* Sombra azul clara */
+}
+
+.especie-form-container button {
+  background-color: #3498db; /* Azul brillante para el botón */
+  color: #fff;
+  border: none;
+  border-radius: 12px; /* Bordes redondeados */
+  padding: 16px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s ease;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  margin-top: 10px;
+}
+
+.especie-form-container button:hover {
+  background-color: #2980b9; /* Azul más oscuro al pasar el ratón */
+  transform: translateY(-5px); /* Efecto de levitar más intenso */
+}
+
+.especie-form-container .cancelar-btn {
+  background-color: #e74c3c; /* Rojo para el botón de cancelar */
+  color: #fff;
+  padding: 16px;
+  font-size: 1.1rem;
+  border-radius: 12px; /* Bordes redondeados */
+  font-weight: 600;
+  transition: background-color 0.3s, transform 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  margin-top: 10px;
+}
+
+.especie-form-container .cancelar-btn:hover {
+  background-color: #c0392b; /* Rojo más oscuro al pasar el ratón */
+  transform: translateY(-5px); /* Efecto de levitar más intenso */
+}
+
+.especie-form-container input[type="file"] {
+  border: 1px solid #bdc3c7; /* Bordes sutiles para el input de archivo */
+  padding: 14px;
+  background-color: #ecf0f1; /* Fondo claro */
+  cursor: pointer;
+}
+
+.especie-form-container input[type="file"]:hover {
+  background-color: #dfe6e9; /* Fondo aún más claro al pasar el ratón */
+}

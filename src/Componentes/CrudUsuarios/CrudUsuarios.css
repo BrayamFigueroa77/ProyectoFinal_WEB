@@ -1,125 +1,162 @@
+/* Estilo para el contenedor principal */
 .body_usuario {
-  font-family: "Arial", sans-serif;
-  background-color: #f4f4f9;
-  padding: 10px;
   display: flex;
   justify-content: center;
-  align-items: center;
-  height: 100vh;
-  color: #333;
-
+  padding: 2rem;
+  background-color: #e7eff3; 
+  margin-top: 0; /* Ajustado para evitar que se salga del contenedor */
 }
 
-/* Contenedor principal */
+/* Contenedor de usuarios */
 .container_usuarios {
-  width: 60%;
-  padding: 20px;
-  background-color: #fff;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-  margin-top: 100px;
-}
-
-/* Título */
-.h2_usuarios {
-  text-align: center;
-  color: #4a90e2;
-  margin-bottom: 20px;
-}
-
-/* Estilos del formulario */
-.input_usuarios {
   width: 100%;
-  padding: 12px;
+  max-width: 900px;
+  padding: 30px; /* Reducido el padding para mayor espacio */
+  background-color: #ffffff;
+  border-radius: 12px; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1);
+  margin-top: 20px; /* Espaciado adecuado entre contenedores */
+  margin-bottom: 20px;
+  transition: all 0.3s ease;
+  box-sizing: border-box; /* Para asegurar que el padding no cause desbordamiento */
+}
+
+/* Estilo para el título y el botón PDF */
+.header_usuario {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  width: 100%;
+}
+
+.h2_usuarios {
+  font-size: 32px; 
+  font-weight: bold;
+  color: #2b2b2b; 
+  margin: 0;
+  text-align: left; /* Asegura que el título no se desplace */
+}
+
+.pdf_button {
+  padding: 10px 20px;
+  background-color: #2980b9;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.pdf_button:hover {
+  background-color: #1d6fa5;
+  transform: scale(1.05);
+}
+
+/* Estilo para los campos de entrada */
+.input_usuarios {
+  width: calc(100% - 22px); /* Ajuste para evitar desbordamiento por padding */
+  padding: 10px;
   margin-top: 10px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  font-size: 16px;
-  box-sizing: border-box;
-  transition: border 0.3s ease;
+  border: 1px solid #b2bec3;
+  border-radius: 8px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  box-sizing: border-box; /* Asegura que el padding no cause desbordamiento */
 }
 
 .input_usuarios:focus {
-  border-color: #4a90e2;
+  border-color: #2980b9;
+  box-shadow: 0 0 5px rgba(41, 128, 185, 0.5);
   outline: none;
 }
 
+/* Botones */
 .button_usuario {
-  padding: 12px 20px;
-  background-color: #4a90e2;
-  color: white;
+  padding: 10px 20px;
+  margin: 8px 5px;
+  background-color: #2980b9;
+  color: #fff;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   cursor: pointer;
-  font-size: 16px;
-  transition: background-color 0.3s ease;
-  margin-top: 10px;
-  margin-right: 10px;
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
-button_usuario:hover {
-  background-color: #357abd;
+.button_usuario:hover {
+  background-color: #1d6fa5;
+  transform: scale(1.05);
 }
 
-button_usuario:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
+/* Botones de editar y eliminar */
+.editar_usuario,
+.eliminar_usuario {
+  padding: 4px 8px; /* Reducción del padding */
+  font-size: 14px; /* Tamaño de fuente más pequeño */
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.editar_usuario {
+  background-color: #27ae60;
+}
+
+.editar_usuario:hover {
+  background-color: #2ecc71;
+  transform: scale(1.05);
+}
+
+.eliminar_usuario {
+  background-color: #e74c3c;
+  margin-left: 5px;
+}
+
+.eliminar_usuario:hover {
+  background-color: #c0392b;
+  transform: scale(1.05);
 }
 
 /* Tabla de usuarios */
 table {
-
   width: 100%;
   border-collapse: collapse;
-  margin-top: 30px;
+  margin-top: 20px;
+  border-radius: 12px;
+  overflow: hidden;
 }
 
-th,
-td {
-
-  text-align: center;
-  border-bottom: 1px solid #ddd;
-}
-
-th {
- padding: 5px;
-  background-color: #4a90e2;
-  color: white;
-}
-
-tr:hover {
-  background-color: #f1f1f1;
-}
-
-table button {
-  padding: 6px 12px;
-  background-color: #f39c12;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-table button:hover {
-  background-color: #e67e22;
-}
-
-table .eliminar_usuario {
-  background-color: #e74c3c;
+table th,
+table td {
   padding: 10px;
-  margin: 5px;
+  border: 1px solid #ddd;
+  text-align: left;
 }
 
-table .eliminar_usuario:hover {
-  background-color: #c0392b;
+table th {
+  background-color: #2980b9;
+  color: #fff;
+  font-weight: bold;
 }
 
-table .editar_usuario {
-  background-color: #2ecc71;
-  padding: 10px;
-  margin: 5px;
+table tr:nth-child(even) {
+  background-color: #ecf0f1;
 }
 
-table .editar_usuario:hover {
-  background-color: #27ae60;
+table tr:hover {
+  background-color: #dfe6e9;
+}
+
+/* Transiciones y estilo de hover en filas */
+table tbody tr {
+  transition: background-color 0.2s ease;
+}
+
+.botones_editar_eliminar_usuario {
+  display: flex;
+  flex-wrap: wrap; /* Asegura que los botones no se salgan */
 }
