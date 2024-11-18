@@ -460,3 +460,16 @@ label {
   display: block;
   font-size: 1.1rem;
 }
+
+.pdf_contenido{
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  margin-inline: auto;
+ 
+}
+
+.pdf{
+  position: absolute;
+  margin-left: 20px;
+}

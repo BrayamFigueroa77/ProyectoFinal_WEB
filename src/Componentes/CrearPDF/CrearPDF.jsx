@@ -1,141 +1,112 @@
-// crearPDF.jsx
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { jsPDF } from "jspdf";
-import "./CrearPDF.css";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../../Firebase/FirebaseConfig";
+import './CrearPDF.css'; // Importa el archivo de estilos
 
-import { db } from "../../Firebase/FirebaseConfig"; // Asegúrate de tener db exportado en FirebaseConfig.js
-import {
-  collection,
-  addDoc,
-  getDocs,
-  doc,
-  updateDoc,
-  deleteDoc,
-} from "firebase/firestore";
 const CrearPDF = () => {
+  const [bitacoras, setBitacoras] = useState([]);
+  const [loading, setLoading] = useState(false);
 
-  const generatePDF = () => {
+  useEffect(() => {
+    const fetchBitacoras = async () => {
+      try {
+        const bitacoraCollection = collection(db, "bitacoras");
+        const bitacoraSnapshot = await getDocs(bitacoraCollection);
+        const bitacoraList = bitacoraSnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        setBitacoras(bitacoraList);
+      } catch (error) {
+        console.error("Error al obtener las bitácoras:", error);
+      }
+    };
+
+    fetchBitacoras();
+  }, []);
+
+  const convertImgToBase64 = async (url) => {
+    try {
+      const response = await fetch(url);
+      const blob = await response.blob();
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onloadend = () => resolve(reader.result);
+        reader.onerror = reject;
+        reader.readAsDataURL(blob);
+      });
+    } catch (error) {
+      console.error("Error al convertir la imagen:", error);
+      return null;
+    }
+  };
+
+  const generatePDF = async () => {
+    setLoading(true);
     const doc = new jsPDF();
+    let yPosition = 10;
 
-//     const [bitacoras, setBitacoras] = useState([]);
-//     const [showForm, setShowForm] = useState(false); // Estado para controlar el formulario
+    try {
+      for (const bitacora of bitacoras) {
+        doc.text(`Título: ${bitacora.titulo || "Sin título"}`, 10, yPosition);
+        yPosition += 10;
+        doc.text(`Fecha: ${bitacora.fecha || "Sin fecha"}`, 10, yPosition);
+        yPosition += 10;
+        doc.text(
+          `Localización: ${bitacora.localizacion || "Sin localización"}`,
+          10,
+          yPosition
+        );
+        yPosition += 10;
+        doc.text(
+          `Condiciones Climáticas: ${bitacora.condiciones || "N/A"}`,
+          10,
+          yPosition
+        );
+        yPosition += 10;
+        doc.text(
+          `Descripción del Hábitat: ${bitacora.descripcionHabitat || "N/A"}`,
+          10,
+          yPosition
+        );
+        yPosition += 10;
+        doc.text(
+          `Observaciones: ${bitacora.observaciones || "Sin observaciones"}`,
+          10,
+          yPosition
+        );
+        yPosition += 20;
 
-//     useEffect(() => {
-//       const fetchBitacoras = async () => {
-//         const bitacoraCollection = collection(db, "bitacoras");
-//         const bitacoraSnapshot = await getDocs(bitacoraCollection);
-//         const bitacoraList = bitacoraSnapshot.docs.map((doc) => ({
-//           id: doc.id,
-//           ...doc.data(),
-//         }));
-//         setBitacoras(bitacoraList);
-//       };
+        if (bitacora.fotografias) {
+          for (const fotoUrl of bitacora.fotografias) {
+            const base64Img = await convertImgToBase64(fotoUrl);
+            if (base64Img) {
+              doc.addImage(base64Img, "JPEG", 10, yPosition, 50, 50);
+              yPosition += 60;
+            }
+          }
+        }
 
-//       fetchBitacoras();
-//     }, [showForm]);
+        yPosition += 20;
+        if (yPosition > 270) {
+          doc.addPage();
+          yPosition = 10;
+        }
+      }
 
-//     // Configurar el título principal
-//     doc.setFontSize(20);
-//     doc.setTextColor(40, 40, 40);
-//     doc.text("Reporte de bitacoras creadas", 20, 20);
-// doc.titulo(20, 20)
-//     // Subtítulo
-//     doc.setFontSize(12);
-//     doc.setTextColor(100, 100, 100);
-//     doc.text("Informe generado automáticamente", 20, 30);
-
-//     // Línea divisoria
-//     doc.setLineWidth(0.5);
-//     doc.line(20, 35, 190, 35);
-
-//     // Agregar imagen (por ejemplo, un logo)
-//     const imageUrl =
-//       "https://www.educaciontrespuntocero.com/wp-content/uploads/2020/04/mejores-bancos-de-imagenes-gratis.jpg"; // URL de la imagen
-//     doc.addImage(imageUrl, "JPEG", 150, 10, 50, 30); // posición y tamaño
-
-//     // Contenido con formato
-//     doc.setFontSize(14);
-//     doc.setTextColor(40, 40, 40);
-//     doc.text("Detalles del Usuario", 20, 50);
-
-//     // Texto de contenido con formato
-
-//     const bitacoraList = collection(db, "bitacoras");
-
-//     // Función para cargar usuarios
-//     const cargarBitacoras = async () => {
-//       const data = await getDocs(bitacoraList);
-//       setUsuarios(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-//     };
-
-//     // Llama a cargarUsuarios cuando el componente se monta
-//     useEffect(() => {
-//       cargarBitacoras();
-//     }, []);
-
-//     doc.setFontSize(12);
-//     doc.setTextColor(60, 60, 60);
-//     doc.text(cargarBitacoras, 20, 70);
-
-//     // Tabla de datos (simulada)
-//     doc.text(bitacoras.);
-//     doc.setFont("helvetica", "bold");
-//     doc.text("Fecha", 20, 110);
-//     doc.text("Actividad", 70, 110);
-//     doc.text("Estado", 150, 110);
-//     doc.setFont("helvetica", "normal");
-
-//     doc.text("01/11/2024", 20, 120);
-//     doc.text("Ingreso al sistema", 70, 120);
-//     doc.text("Exitoso", 150, 120);
-
-//     doc.text("02/11/2024", 20, 130);
-//     doc.text("Actualización de perfil", 70, 130);
-//     doc.text("Exitoso", 150, 130);
-
-//     // Pie de página
-//     doc.setFontSize(10);
-//     doc.setTextColor(150, 150, 150);
-//     doc.text(
-//       "Este documento fue generado automáticamente por el sistema.",
-//       20,
-//       280
-//     );
-
-//     {
-//       /* Lista de bitácoras */
-//     }
-//     <div className="bitacoras-list">
-//       {bitacoras.map((bitacora) => (
-//         <div
-//           key={bitacora.id}
-//           className="bitacora-card"
-//           onClick={() => handleSelectBitacora(bitacora.id)}
-//         >
-//         <h3>Titulo: {bitacora.titulo}</h3>
-//           <p>Fecha: {bitacora.fecha}</p>
-//           <button
-//             onClick={(e) => {
-//               e.stopPropagation();
-//               handleDelete(bitacora.id);
-//             }}
-//           >
-//             Eliminar
-//           </button>
-//         </div>
-//       ))}
-//     </div>;
-
-
-
-    // Descargar el PDF
-    doc.save("reporte-usuarios.pdf");
+      doc.save("reporte-bitacoras.pdf");
+    } catch (error) {
+      console.error("Error al generar el PDF:", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <div>
-      <button className="pdf" onClick={generatePDF}>
-        Descargar PDF
+      <button onClick={generatePDF} className="pdf" disabled={loading}>
+        {loading ? "Generando..." : "Descargar PDF"}
       </button>
     </div>
   );

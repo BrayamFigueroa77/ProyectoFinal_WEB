@@ -4,6 +4,7 @@ import { db } from "../../Firebase/FirebaseConfig";
 import { useNavigate } from "react-router-dom";
 import Mapa from "../Mapa/Mapa"; // Importa el componente del mapa
 import "./InicioBitacora.css";
+import CrearPDF from "../../Componentes/crearPDF/crearPDF";
 
 const InicioBitacora = () => {
   const navigate = useNavigate();
@@ -81,7 +82,10 @@ const InicioBitacora = () => {
   return (
     <div>
       <main>
+      <div className="pdf_contenido"> 
         <h1 className="titulo">Bitácoras de campo</h1>
+      <CrearPDF/>
+      </div>
 
         <div className="contenedor_filtros">
           {/* Campos de búsqueda */}
