@@ -131,7 +131,7 @@ const InicioBitacora = () => {
               checked={ordenDescendente}
               onChange={handleOrdenDescendenteCambio}
             />
-            Orden descendente
+            des
           </label>
         )}
 
@@ -146,7 +146,8 @@ const InicioBitacora = () => {
 
         {/* Mostrar las bitácoras filtradas */}
         {bitacorasFiltradas.length > 0 ? (
-          <div className="bitacoras-list">
+          <div className="bitacora-list">
+            
             {bitacorasFiltradas.map((bitacora) => (
               <div
                 key={bitacora.id}

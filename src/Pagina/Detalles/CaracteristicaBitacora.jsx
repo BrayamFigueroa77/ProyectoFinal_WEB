@@ -86,7 +86,7 @@ const CaracteristicaBitacora = () => {
               <strong>Título:</strong> {selectedBitacora.titulo}
             </p>
             <p>
-              <strong>Fecha y Hora:</strong> {selectedBitacora.fechaHora}
+              <strong>Fecha y Hora:</strong> {selectedBitacora.fecha}
             </p>
             <p>
               <strong>Localización Geográfica:</strong>{" "}
@@ -94,7 +94,7 @@ const CaracteristicaBitacora = () => {
             </p>
             <p>
               <strong>Condiciones Climáticas:</strong>{" "}
-              {selectedBitacora.condicionesClimaticas}
+              {selectedBitacora.condiciones}
             </p>
             <p>
               <strong>Descripción del Hábitat:</strong>{" "}
@@ -147,7 +147,7 @@ const CaracteristicaBitacora = () => {
                     <img
                       src={especie.imagenUrl}
                       alt={`Imagen de ${especie.nombreCientifico}`}
-                      style={{ width: "150px", height: "auto" }}
+                      style={{ width: "150px", height: "150px" }}
                     />
                   )}
                   <button onClick={() => handleEditEspecie(especie)}>
@@ -161,6 +161,7 @@ const CaracteristicaBitacora = () => {
             </div>
           </div>
         )}
+
 
         {/* Formulario para agregar o editar especies */}
         <EspecieForm

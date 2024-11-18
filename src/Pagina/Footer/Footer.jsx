@@ -1,6 +1,7 @@
 import React from "react";
-import Yuliana from "../../../src/img_footer/sin.png";
+import Yuliana from "../../../src/img_footer/Yuliana.jpg";
 import Figueroa from "../../../src/img_footer/Figueroa.png";
+import Esteban from "../../../src/img_footer/Esteban.jpg";
 import "./Footer.css";
 
 const Footer = () => {
@@ -20,10 +21,10 @@ const Footer = () => {
 
       <img
         className="logo_imagenes_footer"
-        src="https://chaira.uniamazonia.edu.co/Administrativo/Vistas/Privado/TalentoHumano/FotoPerfil/Fotos.aspx?estudiante=1050049"
-        alt="Compañero"
+        src={Esteban}
+        alt="Esteban"
       />
-      <h5 className="integrantes_footer">Compañero perez</h5>
+      <h5 className="integrantes_footer">Esteban Barrios</h5>
     </footer>
   );
 };
